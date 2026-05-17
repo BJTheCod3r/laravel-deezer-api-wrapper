@@ -1,0 +1,62 @@
+{
+    "name": "bjthecod3r/laravel-deezer-api-wrapper",
+    "description": "A Laravel wrapper for the Deezer API.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "deezer",
+        "deezer-api",
+        "music",
+        "search",
+        "action-pattern"
+    ],
+    "authors": [
+        {
+            "name": "Bolaji Ajani",
+            "email": "bolaji@bolaji.dev"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/contracts": "^11.0|^12.0|^13.0",
+        "illuminate/http": "^11.0|^12.0|^13.0",
+        "illuminate/support": "^11.0|^12.0|^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "pestphp/pest": "^3.0|^4.0",
+        "pestphp/pest-plugin-laravel": "^3.0|^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BjTheCod3r\\Deezer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BjTheCod3r\\Deezer\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BjTheCod3r\\Deezer\\DeezerServiceProvider"
+            ],
+            "aliases": {
+                "Deezer": "BjTheCod3r\\Deezer\\Facades\\Deezer"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
