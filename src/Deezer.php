@@ -6,6 +6,7 @@ namespace BjTheCod3r\Deezer;
 
 use BjTheCod3r\Deezer\Actions\Albums\GetAlbumAction;
 use BjTheCod3r\Deezer\Actions\Artists\GetArtistAction;
+use BjTheCod3r\Deezer\Actions\Artists\GetArtistTopTracksAction;
 use BjTheCod3r\Deezer\Actions\Episodes\GetEpisodeAction;
 use BjTheCod3r\Deezer\Actions\Genres\GetGenreAction;
 use BjTheCod3r\Deezer\Actions\Playlists\GetPlaylistAction;
@@ -97,6 +98,11 @@ class Deezer
     public function artist(int $id): GetArtistAction
     {
         return (new GetArtistAction($this->client))->id($id);
+    }
+
+    public function artistTopTracks(int $id): GetArtistTopTracksAction
+    {
+        return (new GetArtistTopTracksAction($this->client, $this->config))->id($id);
     }
 
     public function playlist(int $id): GetPlaylistAction

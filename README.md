@@ -2,7 +2,7 @@
 
 # Laravel Deezer API Wrapper
 
-A small, fluent Laravel wrapper around [Deezer's public API](https://developers.deezer.com/api) — currently covers **search** and **get-by-id** for tracks, albums, artists, playlists, podcasts, radios, users, genres and episodes.
+A small, fluent Laravel wrapper around [Deezer's public API](https://developers.deezer.com/api) — currently covers **search**, **get-by-id** for tracks, albums, artists, playlists, podcasts, radios, users, genres and episodes, and **artist top tracks**.
 
 Deezer's search and get endpoints are unauthenticated, so this package has zero credential setup — install it and start querying.
 
@@ -99,12 +99,22 @@ $tracks->prev;    // URL for the previous page, or null
 Deezer::track(3135556)->get();        // Track
 Deezer::album(302127)->get();         // Album (with embedded ->tracks collection)
 Deezer::artist(27)->get();            // Artist
+Deezer::artistTopTracks(27)->get();   // Paginated<Track>
 Deezer::playlist(908622995)->get();   // Playlist (with embedded ->tracks collection)
 Deezer::podcast(1)->get();            // Podcast
 Deezer::radio(2)->get();              // Radio
 Deezer::user(3)->get();               // User
 Deezer::genre(0)->get();              // Genre
 Deezer::episode(5)->get();            // Episode (with ->podcast)
+```
+
+Artist top tracks support pagination:
+
+```php
+$tracks = Deezer::artistTopTracks(27)
+    ->limit(10)
+    ->index(0)
+    ->get();
 ```
 
 ## Configuration

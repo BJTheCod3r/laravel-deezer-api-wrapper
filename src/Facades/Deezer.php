@@ -6,6 +6,7 @@ namespace BjTheCod3r\Deezer\Facades;
 
 use BjTheCod3r\Deezer\Actions\Albums\GetAlbumAction;
 use BjTheCod3r\Deezer\Actions\Artists\GetArtistAction;
+use BjTheCod3r\Deezer\Actions\Artists\GetArtistTopTracksAction;
 use BjTheCod3r\Deezer\Actions\Episodes\GetEpisodeAction;
 use BjTheCod3r\Deezer\Actions\Genres\GetGenreAction;
 use BjTheCod3r\Deezer\Actions\Playlists\GetPlaylistAction;
@@ -34,7 +35,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static SearchUsersAction     searchUsers(string $query)
  * @method static GetTrackAction        track(int $id)
  * @method static GetAlbumAction        album(int $id)
- * @method static GetArtistAction       artist(int $id)
+ * @method static GetArtistAction          artist(int $id)
+ * @method static GetArtistTopTracksAction artistTopTracks(int $id)
  * @method static GetPlaylistAction     playlist(int $id)
  * @method static GetPodcastAction      podcast(int $id)
  * @method static GetRadioAction        radio(int $id)
