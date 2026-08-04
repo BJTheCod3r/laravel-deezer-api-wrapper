@@ -8,6 +8,7 @@ use BjTheCod3r\Deezer\Resources\Album;
 use BjTheCod3r\Deezer\Resources\Artist;
 use BjTheCod3r\Deezer\Resources\Episode;
 use BjTheCod3r\Deezer\Resources\Genre;
+use BjTheCod3r\Deezer\Resources\Paginated;
 use BjTheCod3r\Deezer\Resources\Playlist;
 use BjTheCod3r\Deezer\Resources\Podcast;
 use BjTheCod3r\Deezer\Resources\Radio;
@@ -109,6 +110,42 @@ it('gets an artist by id', function (): void {
         ->and($artist->name)->toBe('Daft Punk')
         ->and($artist->nbFan)->toBe(9_876_543)
         ->and($artist->pictureXl)->toBe('https://e-cdns-images.dzcdn.net/dp_xl.jpg');
+});
+
+it('gets artist top tracks by artist id', function (): void {
+    Http::fake([
+        'api.deezer.com/artist/27/top?limit=2&index=5' => Http::response([
+            'data' => [
+                [
+                    'id' => 3135556,
+                    'title' => 'Harder, Better, Faster, Stronger',
+                    'rank' => 956338,
+                    'artist' => ['id' => 27, 'name' => 'Daft Punk', 'type' => 'artist'],
+                    'type' => 'track',
+                ],
+                [
+                    'id' => 3135553,
+                    'title' => 'One More Time',
+                    'rank' => 895695,
+                    'artist' => ['id' => 27, 'name' => 'Daft Punk', 'type' => 'artist'],
+                    'type' => 'track',
+                ],
+            ],
+            'total' => 50,
+            'next' => 'https://api.deezer.com/artist/27/top?limit=2&index=7',
+        ]),
+    ]);
+
+    $tracks = Deezer::artistTopTracks(27)->limit(2)->index(5)->get();
+
+    expect($tracks)->toBeInstanceOf(Paginated::class)
+        ->and($tracks->data)->toHaveCount(2)
+        ->and($tracks->data[0])->toBeInstanceOf(Track::class)
+        ->and($tracks->data[0]->title)->toBe('Harder, Better, Faster, Stronger')
+        ->and($tracks->data[0]->rank)->toBe(956338)
+        ->and($tracks->data[0]->artist?->name)->toBe('Daft Punk')
+        ->and($tracks->total)->toBe(50)
+        ->and($tracks->next)->toBe('https://api.deezer.com/artist/27/top?limit=2&index=7');
 });
 
 it('gets a playlist with embedded tracks', function (): void {
